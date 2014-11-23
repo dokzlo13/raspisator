@@ -3,11 +3,11 @@ __author__ = 'zloy'
 # -*- coding: UTF-8 -*-
 import xlsxwriter
 
-def write_base(dates):
+def write_base(addr,dates):
 
     zero=0
 
-    workbook = xlsxwriter.Workbook('individual.xlsx')
+    workbook = xlsxwriter.Workbook(addr)
     worksheet = workbook.add_worksheet()
     bold = workbook.add_format({'bold': True})
 

@@ -73,17 +73,14 @@ def load_week(sheet,num_of_groups):
         pos+=19
     return(days)
 
-def load_kurses(dir='',sht=12):
+def load_kurses(dir,sht=12):
     from os import listdir,path
-    dir='./docs1/'
+    #dir='./docs1/'
     lst=listdir(dir)
     weeks=[]
     for i in lst:
         if path.splitext(i)[1]=='.xls':
             weeks.append(i)
-
-
-
     massive=[]
     for i in weeks:
         addr=dir+i
