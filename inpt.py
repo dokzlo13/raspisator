@@ -104,6 +104,12 @@ def load_kurses(dir,sht=12):
     return (massive,dates)
 
 
+def parse_name_string(st):
+    names=st.split(':')
+    names[1]=names[1].split('|')
+    names[1]=tuple(names[1])
+    return names
+
 def load_names(addr):
     """
     Формат конфига имен:
@@ -131,12 +137,6 @@ def load_names(addr):
     '''
     names=[]
     for j in lines:
-        names.append(j.split(':'))
-
-    for j in range(len(names)):
-        names[j][1]=names[j][1].split('|')
-
-    for j in range(len(names)):
-        names[j][1]=tuple(names[j][1])
+        names.append(parse_name_string(j))
 
     return names

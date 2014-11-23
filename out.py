@@ -33,7 +33,6 @@ def write_base(addr,dates):
             k=0
         else:
             k+=1
-
     return workbook
 
 
