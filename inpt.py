@@ -56,8 +56,9 @@ def read_day(sheet,start,num_of_groups,day=1):
             else:
                 if check_merge(sheet,start[0]+i,start[1]+j):
                     para=(numr_pary,(sheet.cell_value(start[0]+i,start[1]+j-1)), str(sheet.cell_value(start[0]+i+1,start[1]+j-1)), str(sheet.cell_value(start[0]+i+2,start[1]+j-1)),str(sheet.cell_value(start[0]+i+3,start[1]+j-1)).replace('.0',''),str(sheet.cell_value(group,start[1]+j)).replace('.0',''))
-                    if not para[2]==para[3]==para[4]=='':
-                        rasp.append(para)
+                    if not para[1]==para[2]==para[3]==para[4]=='':
+                        if numr_pary!=4: #[ИНДУС] если 4 пара, то в потоке она не ведется, выяснить почему merge барахлит
+                            rasp.append(para)
 
         start=(start[0]+3,start[1])
         numr_pary+=1
