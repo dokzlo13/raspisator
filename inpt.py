@@ -74,7 +74,17 @@ def load_week(sheet,num_of_groups):
         pos+=19
     return(days)
 
-def load_kurses(dir,sht=12):
+def load_kurses(dir,sht):
+
+    def check_table_size(sheet):
+        last=0
+        for i in range(2,22):
+            if sheet.cell_value(7,i)!='':
+                #print(i)
+                last=i-1
+                #break
+        return last
+
     from os import listdir,path
     #dir='./docs1/'
     lst=listdir(dir)
@@ -87,23 +97,10 @@ def load_kurses(dir,sht=12):
         addr=dir+i
         book = xlrd.open_workbook(addr, encoding_override="cp1252", formatting_info=True)
         sheet = book.sheet_by_index(sht)
-        if i.split('_')[1]=='1':
-            tmp=load_week(sheet,19)
-        if i.split('_')[1]=='2':
-            tmp=load_week(sheet,13)
-        if i.split('_')[1]=='3':
-            tmp=load_week(sheet,11)
-        if i.split('_')[1]=='4':
-            tmp=load_week(sheet,10)
-        if i.split('_')[1]=='5':
-            tmp=load_week(sheet,6)
-        if i.split('_')[1]=='mag':
-            tmp=load_week(sheet,11)
-
+        tmp=load_week(sheet,check_table_size(sheet))
         massive.append(tmp)
     dates=load_dates(dir+weeks[0],sht)
     return (massive,dates)
-
 
 def parse_name_string(st):
     names=st.split(':')
