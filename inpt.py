@@ -24,18 +24,6 @@ def load_dates(addr,sht): #убрать пробелы
         pos+=19
     return days
 
-
-def check_merge(sheet,row,column):
-    merges=sheet.merged_cells
-    for carret in merges:
-        if carret[0]<=row<=carret[1]:
-            if carret[2]<=column<=carret[3]:
-                return True
-                break
-    else:
-        return False
-
-
 def read_day(sheet,start,num_of_groups,day=1):
     """
     :param sheet: передается страница
@@ -43,6 +31,18 @@ def read_day(sheet,start,num_of_groups,day=1):
     :param day: если первый день в неделе - передается двойка
     :return: вощзращается список структур из данных ячеек
     """
+
+    def check_merge(sheet,row,column):
+        merges=sheet.merged_cells
+        for carret in merges:
+            if carret[0]<=row<=carret[1]:
+                if carret[2]<=column<=carret[3]:
+                    return True
+                    break
+        else:
+            return False
+
+
     rasp=[]
     group=(start[0]-day)
     numr_pary=1

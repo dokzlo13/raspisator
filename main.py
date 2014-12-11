@@ -1,5 +1,5 @@
 __author__ = 'zloy'
-__version__='0.0.01a'
+__version__='0.0.01'
 
 import xlrd
 
@@ -43,16 +43,18 @@ if not args.inpt:
     args.inpt=input('Введите адрес каталога с расписаниями: ')
 if not args.out:
     args.out='./individual.xlsx'
+if not args.sheet:
+    args.sheet=int(input('Введите номер страницы: '))
 if not args.manual:
     if not args.names:
-        args.names=input('Введите файл с именами для поиска: ')
+        args.names=input('Введите файл с именами для поиска (manual - ручной режим) : ')
+        if args.names=='manual':
+            args.manual=True
+            names=[]
 else:
     names=[]
-
 if not args.color:
     args.color=False
-if not args.sheet:
-    args.color=0
 
 print('Создание структуры расписаний')
 massive,dates=inpt.load_kurses(args.inpt,args.sheet) #Загрузка расписаний и дат из таблиц
@@ -81,7 +83,7 @@ for human in range(len(names)): #цикл по количеству препод
         else:
             book=out.write_data(book,tmp,i,human) #запись в таблицу этого дня
 
-    print('Для преподавателя %s записано расписание'%names[human][0])
+    print('Для преподавателя {0} записано расписание'.format(names[human][0]))
 
     if clr==12:
         clr=2
