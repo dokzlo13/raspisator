@@ -1,5 +1,5 @@
 __author__ = 'zloy'
-__version__='0.0.01'
+__version__='0.1a'
 
 import xlrd
 
