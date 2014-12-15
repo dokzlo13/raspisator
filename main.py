@@ -71,7 +71,7 @@ else:
 
 print('Всего преподавателей', len(names))
 print('Запись каркаса расписания')
-book=out.write_base(args.out,dates) #Запись основы в таблицу
+book=out.write_base(args.out,dates,len(names)) #Запись основы в таблицу
 
 clr=2
 for human in range(len(names)): #цикл по количеству преподавателей

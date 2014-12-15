@@ -102,12 +102,6 @@ def load_kurses(dir,sht):
     dates=load_dates(dir+weeks[0],sht)
     return (massive,dates)
 
-def parse_name_string(st):
-    names=st.split(':')
-    names[1]=names[1].split('|')
-    names[1]=tuple(names[1])
-    return names
-
 def load_names(addr):
     """
     Формат конфига имен:
@@ -118,6 +112,12 @@ def load_names(addr):
     :param addr: адрес конфига имен
     :return: возвращается список в формате [[Имя_в_таблице, (Имена, в, расписании)], [...], ...]
     """
+    def parse_name_string(st):
+        names=st.split(':')
+        names[1]=names[1].split('|')
+        names[1]=tuple(names[1])
+        return names
+
     try:
         file=open(addr)
         raw=file.read()
