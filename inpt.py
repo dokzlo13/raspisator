@@ -22,6 +22,12 @@ def load_dates(addr,sht): #убрать пробелы
     for i in range(5):
         days.append(sheet.cell_value(pos,1))
         pos+=19
+    for i in range(len(days)):
+        tmp=days[i]
+        for k in range(20):
+            tmp=tmp.replace('  ',' ')
+        tmp=tmp.strip()
+        days[i]=tmp
     return days
 
 def read_day(sheet,start,num_of_groups,day=1):
