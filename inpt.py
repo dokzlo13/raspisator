@@ -9,22 +9,29 @@ def load_dates(addr,sht): #убрать пробелы
     book = xlrd.open_workbook(addr, encoding_override="cp1252")
     sheet = book.sheet_by_index(sht)
     days=[]
-    pos=27
 
-    #print(sheet.cell_value(7,1))
-    #print(sheet.cell_value(27,1))
-    #print(sheet.cell_value(46,1))
-    #print(sheet.cell_value(65,1))
-    #print(sheet.cell_value(84,1))
-    #print(sheet.cell_value(103,1))
+    for i in range(7,25):
+        if sheet.cell_value(i,1)!='':
+            days.append(sheet.cell_value(i,1))
+    for i in range(27,43):
+        if sheet.cell_value(i,1)!='':
+            days.append(sheet.cell_value(i,1))
+    for i in range(46,62):
+        if sheet.cell_value(i,1)!='':
+            days.append(sheet.cell_value(i,1))
+    for i in range(65,81):
+        if sheet.cell_value(i,1)!='':
+            days.append(sheet.cell_value(i,1))
+    for i in range(84,100):
+        if sheet.cell_value(i,1)!='':
+            days.append(sheet.cell_value(i,1))
+    for i in range(103,119):
+        if sheet.cell_value(i,1)!='':
+            days.append(sheet.cell_value(i,1))
 
-    days.append(sheet.cell_value(7,1))
-    for i in range(5):
-        days.append(sheet.cell_value(pos,1))
-        pos+=19
     for i in range(len(days)):
         tmp=days[i]
-        for k in range(20):
+        for k in range(10):
             tmp=tmp.replace('  ',' ')
         tmp=tmp.strip()
         days[i]=tmp
@@ -105,8 +112,19 @@ def load_kurses(dir,sht):
         sheet = book.sheet_by_index(sht)
         tmp=load_week(sheet,check_table_size(sheet))
         massive.append(tmp)
-    dates=load_dates(dir+weeks[0],sht)
+
+    dates=[]
+    k=0
+    while dates==[]:
+        dates=load_dates(dir+weeks[k],sht)
+        k+=1
     return (massive,dates)
+
+def parse_name_string(st):
+    names=st.split(':')
+    names[1]=names[1].split('|')
+    names[1]=tuple(names[1])
+    return names
 
 def load_names(addr):
     """
@@ -118,18 +136,13 @@ def load_names(addr):
     :param addr: адрес конфига имен
     :return: возвращается список в формате [[Имя_в_таблице, (Имена, в, расписании)], [...], ...]
     """
-    def parse_name_string(st):
-        names=st.split(':')
-        names[1]=names[1].split('|')
-        names[1]=tuple(names[1])
-        return names
 
     try:
         file=open(addr)
         raw=file.read()
         file.close()
     except FileNotFoundError:
-        print('Файл не найден!')
+        print('Файл имен не найден!')
         exit(-1)
 
     lines=raw.split('\n')

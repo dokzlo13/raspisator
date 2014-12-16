@@ -25,6 +25,7 @@ def write_base(addr,dates,names=2):
     worksheet.merge_range(zero,0,zero+1,0, 'Ф.И.О', bold)
 
     pos=1
+
     worksheet.merge_range(zero,pos+0,zero,pos+3+1, dates[0], left_border)
     worksheet.merge_range(zero,pos+4+1,zero,pos+7+2, dates[1], left_border)
     worksheet.merge_range(zero,pos+4+4+2,zero,pos+7+4+3, dates[2], left_border)
@@ -59,7 +60,7 @@ def write_base(addr,dates,names=2):
         worksheet.write(zero+i+2,26,'',left_border)
 
     for i in range(names):
-        for j in range(30):
+        for j in range(31):
             if j==5 or j==10 or j==15 or j==20 or j==25:
                 worksheet.write((zero+i)*4+2,j,'',top_right_border)
             elif j==6 or j==11 or j==16 or j==21 or j==26:
