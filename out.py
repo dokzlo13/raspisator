@@ -75,7 +75,7 @@ def write_name(workbook,name,man):
 
     worksheet=workbook.worksheets()[0]
     pos_row = man*4+2
-    worksheet.write(pos_row,0,name,border)
+    worksheet.merge_range(pos_row,0,pos_row+3,0, name, border)
     return workbook
 
 def write_data(workbook,paras,day=0,man=0,color_set=0):
