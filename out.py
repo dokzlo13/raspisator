@@ -9,11 +9,10 @@ def write_base(addr,dates,names=2):
 
     workbook = xlsxwriter.Workbook(addr)
     worksheet = workbook.add_worksheet()
-    bold = workbook.add_format({'bold': True})
 
+    bold = workbook.add_format({'bold': True})
     left_border=workbook.add_format({'left':5})
     right_border=workbook.add_format({'right':5})
-
     top_right_border=workbook.add_format({'top':1,'right':5})
     top_left_border=workbook.add_format({'top':1,'left':5})
     top_border=workbook.add_format({'top':1})
@@ -88,33 +87,21 @@ def write_data(workbook,paras,day=0,man=0,color_set=0):
     #Установка цвета для дня
     colors=['#0000FF','#00FFFF','#800000','#008000','#00FF00','#FF00FF','#000080','#FFFF00','#800080','#00FF00','#FF6600','#FF0000']
     color = workbook.add_format()
+
+    colored_top_border=workbook.add_format({'top':1})
     color.set_pattern(1)
     if color_set==0 or color_set+1>len(colors):
+        colored_top_border.set_bg_color('#FFFFFF')
         color.set_bg_color('#FFFFFF')
     else:
         color.set_bg_color(colors[color_set-1])
-    '''
-    if day==0:
-        pos=1
-    elif day==1:
-        pos=6
-    elif day==2:
-        pos=11
-    elif day==3:
-        pos=16
-    elif day==4:
-        pos=21
-    elif day==5:
-        pos=26
-    '''
-
-    top_border=workbook.add_format({'top':1})
+        colored_top_border.set_bg_color(colors[color_set-1])
 
     for i in range(5):
         for j in range(len(paras)):
             if paras[j][0]==i+1:
                 i=pos_st+i
-                worksheet.write(pos_row,i,paras[j][1],top_border)
+                worksheet.write(pos_row,i,paras[j][1],colored_top_border)
                 worksheet.write(pos_row+2,i,paras[j][2],color)
                 worksheet.write(pos_row+3,i,paras[j][4].replace('.0',''),color)
                 worksheet.write(pos_row+1,i,paras[j][5].replace('.0',''),color)

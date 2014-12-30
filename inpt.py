@@ -55,7 +55,6 @@ def read_day(sheet,start,num_of_groups,day=1):
         else:
             return False
 
-
     rasp=[]
     group=(start[0]-day)
     numr_pary=1
