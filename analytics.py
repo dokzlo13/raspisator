@@ -32,7 +32,6 @@ def prep_conn_groups(massive):
                 except IndexError:
                     pass
 
-
 def find_class(massive, group, day):
     mass = []
     for i in range(len(massive)):

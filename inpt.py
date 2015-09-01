@@ -76,7 +76,6 @@ def read_day(sheet,start,num_of_groups,day=1):
         numr_pary+=1
     return rasp
 
-
 def load_week(sheet,num_of_groups):
     days=[]
     days.append(read_day(sheet,(9,2),num_of_groups,2))

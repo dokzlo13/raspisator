@@ -69,7 +69,6 @@ def write_base(addr,dates,names=2):
 
     return workbook
 
-
 def write_name(workbook,name,man):
     border=workbook.add_format({'right':5,'top':1})
 
