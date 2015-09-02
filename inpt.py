@@ -1,9 +1,8 @@
 __author__ = 'zloy'
 
-#to fix#
-# в ячейках пар для нескольких потоков считывается только одна группа
-
 import xlrd
+import config
+from os import listdir,path
 
 def load_dates(addr,sht): #убрать пробелы
     book = xlrd.open_workbook(addr, encoding_override="cp1252")
@@ -87,35 +86,50 @@ def load_week(sheet,num_of_groups):
 
 def load_kurses(dir,sht):
 
-    def check_table_size(sheet):
-        last=0
-        for i in range(2,22):
-            if sheet.cell_value(7,i)!='':
-                #print(i)
-                last=i-1
-                #break
-        return last
-
-    from os import listdir,path
-    #dir='./docs1/'
+    select_curse_size = lambda name: config.kurses_size[name.split('_')[1]]
     lst=listdir(dir)
     weeks=[]
     for i in lst:
         if path.splitext(i)[1]=='.xls':
             weeks.append(i)
     massive=[]
-    for i in weeks:
-        addr=dir+i
+    dates=[]
+    for kurse in weeks:
+        addr=dir+kurse
         book = xlrd.open_workbook(addr, encoding_override="cp1252", formatting_info=True)
         sheet = book.sheet_by_index(sht)
-        tmp=load_week(sheet,check_table_size(sheet))
+        tmp=load_week(sheet,select_curse_size(kurse))
         massive.append(tmp)
 
-    dates=[]
-    k=0
-    while dates==[]:
-        dates=load_dates(dir+weeks[k],sht)
-        k+=1
+
+
+        for i in range(7,25):
+            if sheet.cell_value(i,1)!='':
+                dates.append(sheet.cell_value(i,1))
+        for i in range(27,43):
+            if sheet.cell_value(i,1)!='':
+                dates.append(sheet.cell_value(i,1))
+        for i in range(46,62):
+            if sheet.cell_value(i,1)!='':
+                dates.append(sheet.cell_value(i,1))
+        for i in range(65,81):
+            if sheet.cell_value(i,1)!='':
+                dates.append(sheet.cell_value(i,1))
+        for i in range(84,100):
+            if sheet.cell_value(i,1)!='':
+                dates.append(sheet.cell_value(i,1))
+        for i in range(103,119):
+            if sheet.cell_value(i,1)!='':
+                dates.append(sheet.cell_value(i,1))
+
+        for i in range(len(dates)):
+            tmp=dates[i]
+            for k in range(10):
+                tmp=tmp.replace('  ',' ')
+            tmp=tmp.strip()
+            dates[i]=tmp
+    dates = list(set(dates))
+    dates.sort()
     return (massive,dates)
 
 def parse_name_string(st):
@@ -124,34 +138,9 @@ def parse_name_string(st):
     names[1]=tuple(names[1])
     return names
 
-def load_names(addr):
-    """
-    Формат конфига имен:
-    Имя_в_таблице:Имена, В, Расписании
-    двоеточие не отделяется пробелами
-    Каждое из имен распиания отделяется запятой и пробелом (, )
-
-    :param addr: адрес конфига имен
-    :return: возвращается список в формате [[Имя_в_таблице, (Имена, в, расписании)], [...], ...]
-    """
-
-    try:
-        file=open(addr)
-        raw=file.read()
-        file.close()
-    except FileNotFoundError:
-        print('Файл имен не найден!')
-        exit(-1)
-
-    lines=raw.split('\n')
-
-    '''Реализовать комментарии конфига имен
-    for j in range(len(lines)):
-        if lines[j][0]=='#':
-            lines.pop(j)
-    '''
-    names=[]
-    for j in lines:
-        names.append(parse_name_string(j))
-
+def load_names():
+    names = []
+    for i in config.names.items():
+        names.append(i)
+    names.sort()
     return names
