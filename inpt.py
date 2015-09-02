@@ -4,38 +4,6 @@ import xlrd
 import config
 from os import listdir,path
 
-def load_dates(addr,sht): #убрать пробелы
-    book = xlrd.open_workbook(addr, encoding_override="cp1252")
-    sheet = book.sheet_by_index(sht)
-    days=[]
-
-    for i in range(7,25):
-        if sheet.cell_value(i,1)!='':
-            days.append(sheet.cell_value(i,1))
-    for i in range(27,43):
-        if sheet.cell_value(i,1)!='':
-            days.append(sheet.cell_value(i,1))
-    for i in range(46,62):
-        if sheet.cell_value(i,1)!='':
-            days.append(sheet.cell_value(i,1))
-    for i in range(65,81):
-        if sheet.cell_value(i,1)!='':
-            days.append(sheet.cell_value(i,1))
-    for i in range(84,100):
-        if sheet.cell_value(i,1)!='':
-            days.append(sheet.cell_value(i,1))
-    for i in range(103,119):
-        if sheet.cell_value(i,1)!='':
-            days.append(sheet.cell_value(i,1))
-
-    for i in range(len(days)):
-        tmp=days[i]
-        for k in range(10):
-            tmp=tmp.replace('  ',' ')
-        tmp=tmp.strip()
-        days[i]=tmp
-    return days
-
 def read_day(sheet,start,num_of_groups,day=1):
     """
     :param sheet: передается страница
@@ -100,9 +68,6 @@ def load_kurses(dir,sht):
         sheet = book.sheet_by_index(sht)
         tmp=load_week(sheet,select_curse_size(kurse))
         massive.append(tmp)
-
-
-
         for i in range(7,25):
             if sheet.cell_value(i,1)!='':
                 dates.append(sheet.cell_value(i,1))
@@ -121,7 +86,6 @@ def load_kurses(dir,sht):
         for i in range(103,119):
             if sheet.cell_value(i,1)!='':
                 dates.append(sheet.cell_value(i,1))
-
         for i in range(len(dates)):
             tmp=dates[i]
             for k in range(10):

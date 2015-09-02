@@ -34,8 +34,6 @@ try:
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + __version__)
     parser.add_argument('-i','--inpt', action="store", help="Каталог с расписаниями")
     parser.add_argument('-o','--out', action="store", help="Файл для сохранения")
-    #parser.add_argument('-m','--manual', action="store_true", help="Ручной режим ввода фамилий")
-    #parser.add_argument('-n','--names', action="store", help="Файл списка имен")
     parser.add_argument('-s','--sheet', action="store", type=int, help="Страница, на которой находится желаемая неделя расписания")
     parser.add_argument('-c','--color', action="store_true", help="Раскраска цветом")
     args = parser.parse_args()
@@ -49,8 +47,6 @@ try:
         args.sheet = args.sheet - 1
     else:
         args.sheet = args.sheet - 1
-
-
     if not args.color:
         args.color=False
 
